@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_category_basic_infos",
+  "info": {
+    "displayName": "Basic Info",
+    "icon": "apple-alt",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Description": {
+      "type": "text"
+    },
+    "Featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "Vegetarian": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

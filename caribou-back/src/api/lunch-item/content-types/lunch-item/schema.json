@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lunch_items",
+  "info": {
+    "singularName": "lunch-item",
+    "pluralName": "lunch-items",
+    "displayName": "Lunch Item",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "vegetarian": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

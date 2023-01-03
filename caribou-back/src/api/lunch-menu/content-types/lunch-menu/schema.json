@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "lunch_menus",
+  "info": {
+    "singularName": "lunch-menu",
+    "pluralName": "lunch-menus",
+    "displayName": "Lunch Menu",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "EPD_Price": {
+      "type": "decimal",
+      "required": true
+    },
+    "EP_PD_Price": {
+      "type": "decimal"
+    },
+    "P_Price": {
+      "type": "decimal"
+    },
+    "starters": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lunch-item.lunch-item"
+    },
+    "main_courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lunch-item.lunch-item"
+    },
+    "deserts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lunch-item.lunch-item"
+    }
+  }
+}

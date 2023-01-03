@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  postgres:
+    image: mariadb
+    environment:
+      MARIADB_USER: caribou
+      MARIADB_PASSWORD: caribou
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: caribou
+    ports:
+      - 3306:3306
+
