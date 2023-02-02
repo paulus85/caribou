@@ -1,0 +1,59 @@
+---
+- hosts: production
+  tasks:
+    - name: Ping server
+      ping:
+    - name: Install build-essential
+      apt:
+        name: "build-essential"
+        state: present
+        update_cache: "yes"
+    - import_role:
+        name: install_node_16
+    - import_role:
+        name: install_mariadb
+    - import_role:
+        name: nginx
+    - name: Install PM2
+      yarn:
+        state: present
+        name: pm2
+        global: true
+    - name: Attempt to stop app by PM2
+      block:
+        - name: Stop caribou-back process
+          command: "pm2 stop {{ app_name | quote }}"
+      rescue:
+        - name: Inform about the error
+          debug:
+            var: ansible_failed_task
+    - import_role:
+        name: deploy
+    - name: Yarn install
+      yarn:
+        path: '{{ deploy_helper.new_release_path }}'
+        production: true
+    - name: Create public directory
+      file:
+        path: '{{ deploy_helper.shared_path}}'
+        state: directory
+    - name: Create upload directory
+      file:
+        path: '{{ deploy_helper.shared_path}}/uploads'
+        state: directory
+    - name: Build app
+      command:
+        cmd: "yarn build"
+        chdir: '{{ deploy_helper.new_release_path }}'
+      environment:
+        NODE_ENV: production
+
+    - name: Run PM2
+      command:
+        cmd: "pm2 start yarn --name {{app_name}} -- start"
+        chdir: '{{ deploy_helper.new_release_path }}'
+      environment:
+        NODE_ENV: production
+        DATABASE_NAME: "{{ db_name }}"
+        DATABASE_USERNAME: "{{ db_username }}"
+        DATABASE_PASSWORD: "{{ db_user_password }}"

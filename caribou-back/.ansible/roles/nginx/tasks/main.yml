@@ -1,0 +1,43 @@
+---
+- name: Install nginx
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop:
+    - curl
+    - gnupg2
+    - ca-certificates
+    - lsb-release
+    - ubuntu-keyring
+    - nginx
+- name: Install certbot Lets Encrypt
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop:
+   - certbot
+   - python3-certbot-nginx
+- name: Set up ufw
+  ufw:
+    name: Nginx full
+    rule: allow
+- name: Copy site configuration
+  copy:
+    src: "nginx.conf"
+    dest: /etc/nginx/sites-available/api.caribou.paulriviere.fr
+  notify:
+    - reload nginx
+- name: Enable sites configurations
+  file:
+    path: /etc/nginx/sites-enabled/api.caribou.paulriviere.fr
+    state: link
+    src: /etc/nginx/sites-available/api.caribou.paulriviere.fr
+  notify:
+    - reload nginx
+- name: Start nginx service
+  service:
+    name: nginx
+    state: started
+    enabled: true

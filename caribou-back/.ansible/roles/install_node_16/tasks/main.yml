@@ -1,0 +1,16 @@
+---
+# tasks file for install_node_16
+- name: Add Node16 deb repo
+  become: yes
+  shell:
+    "curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -"
+- name: APT Get Node16
+  apt:
+    name: nodejs
+    state: present
+- name: Print node version
+  command: node --version
+  register: node_version
+- debug: msg="{{ node_version.stdout }}"
+- name: Enable Corepack for Yarn
+  command: corepack enable

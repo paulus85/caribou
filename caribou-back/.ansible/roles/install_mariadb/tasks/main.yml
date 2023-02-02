@@ -1,0 +1,53 @@
+---
+- name: Install Python-PIP
+  apt:
+    name: python3-pip
+- name: Get installed pip version
+  command: "pip --version"
+  register: pip_version_output
+  ignore_errors: yes
+  changed_when: false
+- debug: msg="{{ pip_version_output.stdout }}"
+- name: Install requirements
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  loop:
+    - python3-dev
+    - default-libmysqlclient-dev
+    - build-essential
+- name: Install mysql python adapter
+  pip:
+    name: mysqlclient
+    state: present
+- name: Install mariadb-server
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  loop:
+    - mariadb-server
+- name: start mariadb
+  service:
+    name: mariadb
+    enabled: yes
+    state: started
+- name: creating caribou user
+  mysql_user:
+    name: "{{db_username}}"
+    password: "{{db_user_password}}"
+    host: '%'
+    priv: '*.*:ALL'
+    state: present
+- name: create caribou database
+  mysql_db:
+    name: "{{db_name}}"
+    state: present
+- name: Enable remote login to mysql
+  lineinfile:
+    path: /etc/mysql/mariadb.conf.d/50-server.cnf
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+    backup: yes
+  notify:
+    - Restart mariadb
+

@@ -1,0 +1,33 @@
+---
+# tasks file for deploy
+- name: Initialize the deploy
+  deploy_helper:
+    path: '{{ path }}'
+- name: Create release directory
+  file:
+    path: '{{ deploy_helper.new_release_path }}'
+    state: directory
+- name: Add an unfinished file
+  file:
+    path: '{{ deploy_helper.new_release_path }}/{{ deploy_helper.unfinished_filename }}'
+    state: touch
+- name: Copy the archive on the server
+  copy:
+    src: '{{ role_path }}/../../../{{ artifact }}'
+    dest: '{{ deploy_helper.new_release_path }}/archive.tar.gz'
+- name: Extract the archive
+  unarchive:
+    copy: false
+    src: '{{ deploy_helper.new_release_path }}/archive.tar.gz'
+    dest: '{{ deploy_helper.new_release_path }}'
+- name: Remove the archive
+  file:
+    path: '{{ deploy_helper.new_release_path }}/archive.tar.gz'
+    state: absent
+- name: Finalize the deploy
+  deploy_helper:
+    path: '{{ deploy_helper.project_path }}'
+    release: '{{ deploy_helper.new_release }}'
+    state: finalize
+    keep_releases: 3
+

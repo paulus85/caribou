@@ -1,0 +1,2 @@
+[production]
+web_server ansible_host=51.15.193.242 ansible_user=root ansible_python_interpreter=python3 ansible_become_method=su

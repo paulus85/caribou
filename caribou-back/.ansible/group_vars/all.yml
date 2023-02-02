@@ -1,0 +1,5 @@
+---
+artifact: archive.tar.gz
+path: /usr/caribou
+app_name: "caribou-back"
+
