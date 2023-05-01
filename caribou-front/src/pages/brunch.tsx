@@ -6,6 +6,7 @@ import ForkIcon from '../../public/icon/fork.svg'
 import ClockIcon from '../../public/icon/clock.svg'
 import CalendarIcon from '../../public/icon/calendar.svg'
 import PlusIcon from '../../public/icon/plus.svg'
+import MenuItem from '@/components/MenuItem'
 
 const gridContent = [
     {
@@ -53,8 +54,8 @@ function Brunch() {
                     </Fragment>
                 ))}
             </div>
-            <div className="bg-[#EEE9DC] py-24">
-                <div className="flex flex-col max-w-2xl px-5 mx-auto text-center items-center">
+            <div className="bg-[#EEE9DC] text-[#584C43] py-24">
+                <div className="flex flex-col max-w-2xl px-5 mx-auto items-center">
                     <h2 className="text-[#63869F] uppercase font-bold tracking-wider text-4xl mb-16">
                         FORMULE UNIQUE — 26&nbsp;€
                     </h2>
@@ -85,6 +86,27 @@ function Brunch() {
                     <h3 className="text-[#584C43] uppercase tracking-widest mb-4 text-2xl">
                         Un plat au choix
                     </h3>
+                    <MenuItem
+                        title={'Grilled Cheese au Pulled Pork'}
+                        description={
+                            'Pain de campagne, fromage cheddar, porc effiloché à la sauce barbecue, patates sautées et tomate au four à la provencale'
+                        }
+                        price={25.87}
+                    />
+                    <MenuItem
+                        title={'Grilled Cheese au Pulled Pork'}
+                        description={
+                            'Pain de campagne, fromage cheddar, porc effiloché à la sauce barbecue, patates sautées et tomate au four à la provencale'
+                        }
+                        price={25.87}
+                    />
+                    <MenuItem
+                        title={'Grilled Cheese au Pulled Pork'}
+                        description={
+                            'Pain de campagne, fromage cheddar, porc effiloché à la sauce barbecue, patates sautées et tomate au four à la provencale'
+                        }
+                        price={25.87}
+                    />
                 </div>
             </div>
         </Layout>
