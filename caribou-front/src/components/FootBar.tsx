@@ -32,14 +32,14 @@ const FootBar = () => {
                         Nous sommes ouverts
                     </h3>
                     <div className="grid grid-cols-[auto_auto_auto] gap-x-2 justify-start mb-2">
-                        {timeTable.map((value) => (
-                            <>
+                        {timeTable.map((value, index) => (
+                            <React.Fragment key={index}>
                                 <div className="font-light justify-self-end">
                                     {value.day}
                                 </div>
                                 <div className="font-light">:</div>
                                 <div>{value.time}</div>
-                            </>
+                            </React.Fragment>
                         ))}
                     </div>
                     <p className="">Lunch en semaine, de 12h00 à 14h00.</p>

@@ -4,7 +4,7 @@ import Logo from '../../public/logo.png'
 
 export default function Navbar() {
     return (
-        <div className="flex justify-center items-start pt-4 px-14 w-full h-48 bg-gradient-to-b from-[#EEE9DC]">
+        <div className="flex justify-center items-start pt-4 px-14 w-full h-48 bg-gradient-to-b from-[#EEE9DC] text-[#442412]">
             <div className="flex items-center justify-around w-full">
                 <div className="text-lg uppercase font-bold">
                     <a href="#">Home</a>
